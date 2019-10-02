@@ -1,5 +1,5 @@
-from flask import Flask
-from flask import jsonify
+from flask import Flask,jsonify
+import pandas as pd
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -12,8 +12,19 @@ def hello():
 
 @app.route("/api")
 def helloapi():
-    data = {'Colorado':'Rockies',
+    data_dict = {'Colorado':'Rockies',
             'Boston': 'RedSox'}
-    json_data = jsonify(data)
 
-    return json_data
+    studentData = {
+        'name': ['Tig', 'Tac', 'Toe'],
+        'age': [1, 2, 3],
+        'city': ['Disney', 'Cbeebies', 'CartoonNetwork']
+    }
+
+    json_data = jsonify(data_dict)
+
+    dataframe_object = pd.DataFrame(studentData)
+
+
+    #return json_data
+    return dataframe_object.to_json(orient='records')
